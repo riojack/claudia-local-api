@@ -5,6 +5,7 @@ const pathParser = require('path-parser');
 const request = require('request');
 const rewire = require('rewire');
 const sinon = require('sinon');
+const querystring = require('querystring');
 
 const localApi = rewire('../lib');
 
@@ -775,9 +776,7 @@ describe('Integration tests for lib/index', function () {
                 expect(headers.headers.called).to.be.eql('handlePostRequest');
                 expect(body).to.be.eql(JSON.stringify({
                     status: 'OK',
-                    body: {
-                        test: inputBody.test.toString()
-                    },
+                    body: querystring.stringify(inputBody),
                     pathParams: {},
                     query: {}
                 }));
